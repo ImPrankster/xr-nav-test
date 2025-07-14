@@ -12,7 +12,7 @@ function Index() {
 		secondaryInputSources: true,
 		offerSession: "immersive-vr",
 		emulate: {
-			inject: true,
+			inject: false,
 		},
 	});
 	return (
