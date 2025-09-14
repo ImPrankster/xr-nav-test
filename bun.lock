@@ -4,6 +4,7 @@
     "": {
       "name": "xr-app",
       "dependencies": {
+        "@react-three/cannon": "^6.6.0",
         "@react-three/drei": "^10.5.0",
         "@react-three/fiber": "^9.2.0",
         "@react-three/xr": "^6.6.19",
@@ -14,6 +15,7 @@
         "react-dom": "^19.1.0",
         "tailwindcss": "^4.1.11",
         "three": "^0.178.0",
+        "three-stdlib": "^2.36.0",
       },
       "devDependencies": {
         "@biomejs/biome": "2.1.1",
@@ -202,11 +204,15 @@
 
     "@monogrid/gainmap-js": ["@monogrid/gainmap-js@3.1.0", "", { "dependencies": { "promise-worker-transferable": "^1.0.4" }, "peerDependencies": { "three": ">= 0.159.0" } }, "sha512-Obb0/gEd/HReTlg8ttaYk+0m62gQJmCblMOjHSMHRrBP2zdfKMHLCRbh/6ex9fSUJMKdjjIEiohwkbGD3wj2Nw=="],
 
+    "@pmndrs/cannon-worker-api": ["@pmndrs/cannon-worker-api@2.4.0", "", { "peerDependencies": { "three": ">=0.139" } }, "sha512-oJA1Bboc+WObksRaGDKJG0Wna9Q75xi1MdXVAZ9qXzBOyPsadmAnrmiKOEF0R8v/4zsuJElvscNZmyo3msbZjA=="],
+
     "@pmndrs/handle": ["@pmndrs/handle@6.6.19", "", { "dependencies": { "@pmndrs/pointer-events": "~6.6.19", "zustand": "^4.5.2" } }, "sha512-sULA2N/3uxFbLBM/fX0W3mKpWRTQQvnqDMaLUya5gaGWcWioSRcNTVdyPIpnhMDHUcS17op7uci36yfpXca7PA=="],
 
     "@pmndrs/pointer-events": ["@pmndrs/pointer-events@6.6.19", "", {}, "sha512-w/i5LJnfPdDowRQ5HokGZFvtLx+VF3iO/jP3Mc7aJ5tuuJlNf/VmjesiyJsc0QRw/RW3pBgBfIFQQlqknXorww=="],
 
     "@pmndrs/xr": ["@pmndrs/xr@6.6.19", "", { "dependencies": { "@iwer/devui": "^1.1.1", "@iwer/sem": "~0.2.5", "@pmndrs/pointer-events": "~6.6.19", "iwer": "^2.0.1", "meshline": "^3.3.1", "zustand": "^4.5.2" }, "peerDependencies": { "three": "*" } }, "sha512-z47rhRfubHLlKmg8QtRpTt384cup5/zIG/7V030Ia7VaFWpxbEsqB6VkM4zWZfdvotmBgO0JgDrGNRdUBT3qJA=="],
+
+    "@react-three/cannon": ["@react-three/cannon@6.6.0", "", { "dependencies": { "@pmndrs/cannon-worker-api": "^2.4.0", "cannon-es": "^0.20.0", "cannon-es-debugger": "^1.0.0" }, "peerDependencies": { "@react-three/fiber": ">=8", "react": ">=18", "three": ">=0.139" } }, "sha512-lP9rJoVHQi0w+dYF8FJAm2xr5eLfNEckb04j72kjqndUkuOPr26N4rSBhQbHl5b5N3tEnhQaIMungAvHkcY8/A=="],
 
     "@react-three/drei": ["@react-three/drei@10.5.0", "", { "dependencies": { "@babel/runtime": "^7.26.0", "@mediapipe/tasks-vision": "0.10.17", "@monogrid/gainmap-js": "^3.0.6", "@use-gesture/react": "^10.3.1", "camera-controls": "^3.0.0", "cross-env": "^7.0.3", "detect-gpu": "^5.0.56", "glsl-noise": "^0.0.0", "hls.js": "^1.5.17", "maath": "^0.10.8", "meshline": "^3.3.1", "stats-gl": "^2.2.8", "stats.js": "^0.17.0", "suspend-react": "^0.1.3", "three-mesh-bvh": "^0.8.3", "three-stdlib": "^2.35.6", "troika-three-text": "^0.52.4", "tunnel-rat": "^0.1.2", "use-sync-external-store": "^1.4.0", "utility-types": "^3.11.0", "zustand": "^5.0.1" }, "peerDependencies": { "@react-three/fiber": "^9.0.0", "react": "^19", "react-dom": "^19", "three": ">=0.159" }, "optionalPeers": ["react-dom"] }, "sha512-8VHFmwiIixw0MhTt8ZiLPZH/JrJVsRQiosHqBrV2qRKhYB4aPJ1A9MkqQdKnxUfvvbsi0zu2iXeRCH1HhUaNsg=="],
 
@@ -377,6 +383,10 @@
     "camera-controls": ["camera-controls@3.0.0", "", { "peerDependencies": { "three": ">=0.126.1" } }, "sha512-tTZYhGMrYsSabTCMHw9njvwt1Fd+CSFtP2xrul/vSCYyj8AfIFsJNiaIFAeJsK6MWu8Y89/ow4SbuVGGLgmIrQ=="],
 
     "caniuse-lite": ["caniuse-lite@1.0.30001727", "", {}, "sha512-pB68nIHmbN6L/4C6MH1DokyR3bYqFwjaSs/sWDHGj4CTcFtQUQMuJftVwWkXq7mNWOybD3KhUv3oWHoGxgP14Q=="],
+
+    "cannon-es": ["cannon-es@0.20.0", "", {}, "sha512-eZhWTZIkFOnMAJOgfXJa9+b3kVlvG+FX4mdkpePev/w/rP5V8NRquGyEozcjPfEoXUlb+p7d9SUcmDSn14prOA=="],
+
+    "cannon-es-debugger": ["cannon-es-debugger@1.0.0", "", { "peerDependencies": { "cannon-es": "0.x", "three": "0.x", "typescript": ">=3.8" }, "optionalPeers": ["typescript"] }, "sha512-sE9lDOBAYFKlh+0w+cvWKwUhJef8HYnUSVPWPL0jD15MAuVRQKno4QYZSGxgOoJkMR3mQqxL4bxys2b3RSWH8g=="],
 
     "case-anything": ["case-anything@2.1.13", "", {}, "sha512-zlOQ80VrQ2Ue+ymH5OuM/DlDq64mEm+B9UTdHULv5osUMD6HalNTblf2b1u/m6QecjsnOkBpqVZ+XPwIVsy7Ng=="],
 

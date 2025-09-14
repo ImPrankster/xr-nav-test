@@ -10,6 +10,7 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@react-three/cannon": "^6.6.0",
 		"@react-three/drei": "^10.5.0",
 		"@react-three/fiber": "^9.2.0",
 		"@react-three/xr": "^6.6.19",
@@ -19,7 +20,8 @@
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"tailwindcss": "^4.1.11",
-		"three": "^0.178.0"
+		"three": "^0.178.0",
+		"three-stdlib": "^2.36.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.1.1",
