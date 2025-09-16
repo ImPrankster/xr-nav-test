@@ -8,13 +8,13 @@ export const Route = createFileRoute("/")({
 
 function Index() {
 	const store = createXRStore({
-		hand: { touchPointer: false },
-		secondaryInputSources: true,
+		hand: { left: true, right: true },
 		offerSession: "immersive-vr",
 		emulate: {
 			inject: false,
 		},
 	});
+
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-center gap-2 p-4">
 			<h1 className="font-bold text-2xl">Create VR App</h1>
@@ -37,5 +37,3 @@ function Index() {
 		</main>
 	);
 }
-
-export default Index;
