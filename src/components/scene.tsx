@@ -8,76 +8,16 @@ import {
 	XROrigin,
 	type XRStore,
 } from "@react-three/xr";
-import { Suspense, useEffect, useState } from "react";
-import {
-	getJointsFromXRFrame,
-	getJointsPositions,
-	type Joints,
-	printHandJoints2D,
-} from "~/helpers/joints";
+import { Suspense, useEffect } from "react";
+import { printHandJoints2D } from "~/helpers/joints";
 import type { PhysicalBodyCommonProps } from "~/helpers/types";
+import { useJoints } from "~/hooks/useJoints";
+import { useXRSession } from "~/hooks/useXRSession";
 import { Chair, Lamp, Mug, Table } from "./furniture";
 
 export default function Scene({ xrStore }: { xrStore: XRStore }) {
-	const [session, setSession] = useState<XRSession | undefined>(undefined);
-	const [originReferenceSpace, setOriginReferenceSpace] = useState<
-		XRReferenceSpace | undefined
-	>(undefined);
-	const [joints, setJoints] = useState<Joints>(new Float32Array(25 * 16));
-
-	function onXRFrame(
-		time: number,
-		frame: XRFrame,
-		session: XRSession,
-		originReferenceSpace: XRReferenceSpace,
-	) {
-		const jointTransforms = getJointsFromXRFrame(
-			time,
-			frame,
-			session,
-			originReferenceSpace,
-		);
-
-		if (jointTransforms) {
-			setJoints(jointTransforms);
-		}
-	}
-
-	useEffect(() => {
-		const unsubscribe = xrStore.subscribe((state) => {
-			const { session, originReferenceSpace } = state;
-			setSession(session);
-			setOriginReferenceSpace(originReferenceSpace);
-			console.log("session", session);
-		});
-		return () => {
-			unsubscribe();
-		};
-	}, [xrStore]);
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: we need to keep the session in the dependency array
-	useEffect(() => {
-		let intervalId: number | undefined;
-		if (session && originReferenceSpace) {
-			// Run at 10 times per second (every 100ms)
-			intervalId = window.setInterval(() => {
-				if (session && originReferenceSpace) {
-					// Request a single frame to get the latest hand data
-					session.requestAnimationFrame((time, frame) => {
-						onXRFrame(time, frame, session, originReferenceSpace);
-					});
-				}
-			}, 100); // 100ms = 10 times per second
-			console.log("started hand tracking interval", intervalId);
-		}
-
-		return () => {
-			if (intervalId) {
-				clearInterval(intervalId);
-				console.log("cleared hand tracking interval", intervalId);
-			}
-		};
-	}, [session, originReferenceSpace]);
+	const { session, originReferenceSpace } = useXRSession(xrStore);
+	const joints = useJoints(session, originReferenceSpace, 100); // 100ms update interval
 
 	useEffect(() => {
 		printHandJoints2D(joints);
