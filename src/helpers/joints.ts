@@ -47,32 +47,32 @@ export type Joint = Float32Array;
 /**
  * Map of joint names to their indices in the Joints array.
  */
-export const JointMap: Record<JOINT_TYPES, number[]> = {
-	Wrist: [0, 1, 2, 3, 4],
-	Thumb_Metacarpal: [5, 6, 7, 8, 9],
-	Thumb_Phalanx_Proximal: [10, 11, 12, 13, 14],
-	Thumb_Phalanx_Distal: [15, 16, 17, 18, 19],
-	Thumb_Tip: [20, 21, 22, 23, 24],
-	Index_Metacarpal: [25, 26, 27, 28, 29],
-	Index_Phalanx_Proximal: [30, 31, 32, 33, 34],
-	Index_Phalanx_Intermediate: [35, 36, 37, 38, 39],
-	Index_Phalanx_Distal: [40, 41, 42, 43, 44],
-	Index_Tip: [45, 46, 47, 48, 49],
-	Middle_Metacarpal: [50, 51, 52, 53, 54],
-	Middle_Phalanx_Proximal: [55, 56, 57, 58, 59],
-	Middle_Phalanx_Intermediate: [60, 61, 62, 63, 64],
-	Middle_Phalanx_Distal: [65, 66, 67, 68, 69],
-	Middle_Tip: [70, 71, 72, 73, 74],
-	Ring_Metacarpal: [75, 76, 77, 78, 79],
-	Ring_Phalanx_Proximal: [80, 81, 82, 83, 84],
-	Ring_Phalanx_Intermediate: [85, 86, 87, 88, 89],
-	Ring_Phalanx_Distal: [90, 91, 92, 93, 94],
-	Ring_Tip: [95, 96, 97, 98, 99],
-	Pinky_Metacarpal: [100, 101, 102, 103, 104],
-	Pinky_Phalanx_Proximal: [105, 106, 107, 108, 109],
-	Pinky_Phalanx_Intermediate: [110, 111, 112, 113, 114],
-	Pinky_Phalanx_Distal: [115, 116, 117, 118, 119],
-	Pinky_Tip: [120, 121, 122, 123, 124],
+export const JointMap: Record<JOINT_TYPES, number> = {
+	Wrist: 0,
+	Thumb_Metacarpal: 1,
+	Thumb_Phalanx_Proximal: 2,
+	Thumb_Phalanx_Distal: 3,
+	Thumb_Tip: 4,
+	Index_Metacarpal: 5,
+	Index_Phalanx_Proximal: 6,
+	Index_Phalanx_Intermediate: 7,
+	Index_Phalanx_Distal: 8,
+	Index_Tip: 9,
+	Middle_Metacarpal: 10,
+	Middle_Phalanx_Proximal: 11,
+	Middle_Phalanx_Intermediate: 12,
+	Middle_Phalanx_Distal: 13,
+	Middle_Tip: 14,
+	Ring_Metacarpal: 15,
+	Ring_Phalanx_Proximal: 16,
+	Ring_Phalanx_Intermediate: 17,
+	Ring_Phalanx_Distal: 18,
+	Ring_Tip: 19,
+	Pinky_Metacarpal: 20,
+	Pinky_Phalanx_Proximal: 21,
+	Pinky_Phalanx_Intermediate: 22,
+	Pinky_Phalanx_Distal: 23,
+	Pinky_Tip: 24,
 };
 
 /**
@@ -215,5 +215,5 @@ export function getJointTransform(
 	joints: Joints,
 ): Joints {
 	const jointIndex = JointMap[jointNames];
-	return joints.slice(jointIndex[0] * 16, jointIndex[1] * 16);
+	return joints.slice(jointIndex * 16, (jointIndex + 1) * 16);
 }

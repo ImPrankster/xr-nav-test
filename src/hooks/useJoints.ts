@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { getJointsFromXRFrame, type Joints } from "~/helpers/joints";
+import {
+	getJointsFromXRFrame,
+	type Joints,
+	printHandJoints2D,
+} from "~/helpers/joints";
 
 /**
  * Custom hook for tracking hand joints in XR sessions.
@@ -19,7 +23,6 @@ import { getJointsFromXRFrame, type Joints } from "~/helpers/joints";
  *   const joints = useJoints(session, originReferenceSpace, 100); // Update every 100ms
  *
  *   useEffect(() => {
- *     // Process joint data
  *     console.log('Current joints:', joints);
  *   }, [joints]);
  *
@@ -50,6 +53,7 @@ export function useJoints(
 
 			if (jointTransforms) {
 				setJoints(jointTransforms);
+				printHandJoints2D(jointTransforms);
 			}
 		},
 		[],

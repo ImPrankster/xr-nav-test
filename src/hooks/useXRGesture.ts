@@ -1,5 +1,6 @@
-import type { XRStore } from "@react-three/xr";
+import { useAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
+import { gestureAtom } from "~/helpers/gesture";
 import { getJointTransform, getJointXYZ, type Joints } from "~/helpers/joints";
 import { useJoints } from "./useJoints";
 import { useXRSession } from "./useXRSession";
@@ -29,11 +30,12 @@ import { useXRSession } from "./useXRSession";
  * }
  * ```
  */
-export function useNeutralHandPos(xrStore: XRStore, threshold: number = 0.05) {
-	const { session, originReferenceSpace } = useXRSession(xrStore);
+export function useNeutralHandPos(threshold: number = 0.01) {
+	const { session, originReferenceSpace } = useXRSession();
+	const joints = useJoints(session, originReferenceSpace);
 
 	const [isNeutral, setIsNeutral] = useState(false);
-	const joints = useJoints(session, originReferenceSpace, 100);
+	const [thumbDistance, setThumbDistance] = useState(0);
 
 	const checkNeutralPosition = useCallback(
 		(joints: Joints | null) => {
@@ -48,6 +50,7 @@ export function useNeutralHandPos(xrStore: XRStore, threshold: number = 0.05) {
 			// Calculate distance between thumb tips
 			const thumbDistance = thumbPos.distanceTo(indexPos);
 
+			setThumbDistance(thumbDistance);
 			setIsNeutral(thumbDistance <= threshold);
 		},
 		[threshold],
@@ -59,5 +62,18 @@ export function useNeutralHandPos(xrStore: XRStore, threshold: number = 0.05) {
 
 	return {
 		isNeutral,
+		thumbDistance,
 	};
+}
+
+export function useUpdateGesture() {
+	const { isNeutral, thumbDistance } = useNeutralHandPos();
+	const [_, setGesture] = useAtom(gestureAtom);
+
+	useEffect(() => {
+		setGesture({
+			neutral: isNeutral,
+			thumbDistance,
+		});
+	}, [isNeutral, thumbDistance, setGesture]);
 }

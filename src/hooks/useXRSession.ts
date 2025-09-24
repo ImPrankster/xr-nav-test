@@ -1,4 +1,4 @@
-import type { XRStore } from "@react-three/xr";
+import { useXRStore } from "@react-three/xr";
 import { useEffect, useState } from "react";
 
 /**
@@ -23,7 +23,8 @@ import { useEffect, useState } from "react";
  * }
  * ```
  */
-export function useXRSession(xrStore: XRStore) {
+export function useXRSession() {
+	const xrStore = useXRStore();
 	const [session, setSession] = useState<XRSession | undefined>(undefined);
 	const [originReferenceSpace, setOriginReferenceSpace] = useState<
 		XRReferenceSpace | undefined
@@ -35,7 +36,6 @@ export function useXRSession(xrStore: XRStore) {
 			const { session, originReferenceSpace } = state;
 			setSession(session);
 			setOriginReferenceSpace(originReferenceSpace);
-			console.log("session", session);
 		});
 		return () => {
 			unsubscribe();
