@@ -1,19 +1,16 @@
-import { useXRStore } from "@react-three/xr";
-import { useEffect, useState } from "react";
+import { useXRJointsContext } from "../components/XRJointsProvider";
 
 /**
  * Custom hook for managing XR session and origin reference space.
  *
- * This hook subscribes to the XR store and provides the current session
- * and origin reference space state.
+ * This hook provides the current session and origin reference space state from the shared XR context.
  *
- * @param xrStore - The XR store containing session and reference space data
  * @returns Object containing the current session and originReferenceSpace
  *
  * @example
  * ```tsx
- * function MyComponent({ xrStore }: { xrStore: XRStore }) {
- *   const { session, originReferenceSpace } = useXRSession(xrStore);
+ * function MyComponent() {
+ *   const { session, originReferenceSpace } = useXRSession();
  *
  *   return (
  *     <div>
@@ -24,23 +21,6 @@ import { useEffect, useState } from "react";
  * ```
  */
 export function useXRSession() {
-	const xrStore = useXRStore();
-	const [session, setSession] = useState<XRSession | undefined>(undefined);
-	const [originReferenceSpace, setOriginReferenceSpace] = useState<
-		XRReferenceSpace | undefined
-	>(undefined);
-
-	// Subscribe to XR store changes
-	useEffect(() => {
-		const unsubscribe = xrStore.subscribe((state) => {
-			const { session, originReferenceSpace } = state;
-			setSession(session);
-			setOriginReferenceSpace(originReferenceSpace);
-		});
-		return () => {
-			unsubscribe();
-		};
-	}, [xrStore]);
-
-	return { session, originReferenceSpace };
+  const { session, originReferenceSpace } = useXRJointsContext();
+  return { session, originReferenceSpace };
 }
